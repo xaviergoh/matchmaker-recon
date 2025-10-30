@@ -12,7 +12,8 @@ import { toast } from "sonner";
 export default function Reconcile() {
   const [selectedBank, setSelectedBank] = useState<string | null>(null);
   const [selectedSystem, setSelectedSystem] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [bankSearchTerm, setBankSearchTerm] = useState("");
+  const [systemSearchTerm, setSystemSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("unmatched");
 
   const handleMatch = () => {
@@ -31,16 +32,16 @@ export default function Reconcile() {
 
   const filteredBankTransactions = unmatchedBankTransactions.filter(
     (t) =>
-      t.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      t.reference.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      t.partner?.toLowerCase().includes(searchTerm.toLowerCase())
+      t.description.toLowerCase().includes(bankSearchTerm.toLowerCase()) ||
+      t.reference.toLowerCase().includes(bankSearchTerm.toLowerCase()) ||
+      t.partner?.toLowerCase().includes(bankSearchTerm.toLowerCase())
   );
 
   const filteredSystemTransactions = unmatchedSystemTransactions.filter(
     (t) =>
-      t.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      t.reference.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      t.partner?.toLowerCase().includes(searchTerm.toLowerCase())
+      t.description.toLowerCase().includes(systemSearchTerm.toLowerCase()) ||
+      t.reference.toLowerCase().includes(systemSearchTerm.toLowerCase()) ||
+      t.partner?.toLowerCase().includes(systemSearchTerm.toLowerCase())
   );
 
   const getBankTransaction = (id: string): Transaction | undefined => {
@@ -227,23 +228,24 @@ export default function Reconcile() {
         </TabsList>
 
         <TabsContent value="unmatched" className="space-y-6">
-          <div className="relative">
-            <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-            <Input
-              placeholder="Search by partner, reference, FX pair, settlement ID..."
-              className="pl-10"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-
           <div className="grid gap-6 lg:grid-cols-2">
             <Card>
-              <CardHeader className="border-b bg-muted/30">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  Bank Statements
-                  <Badge variant="secondary">{filteredBankTransactions.length}</Badge>
-                </CardTitle>
+              <CardHeader className="border-b bg-muted/30 space-y-3 pb-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    Bank Statements
+                    <Badge variant="secondary">{filteredBankTransactions.length}</Badge>
+                  </CardTitle>
+                </div>
+                <div className="relative">
+                  <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search bank statements..."
+                    className="pl-9 h-9"
+                    value={bankSearchTerm}
+                    onChange={(e) => setBankSearchTerm(e.target.value)}
+                  />
+                </div>
               </CardHeader>
               <CardContent className="p-4 space-y-3 max-h-[calc(100vh-350px)] overflow-y-auto">
                 {filteredBankTransactions.map((transaction) => (
@@ -259,11 +261,22 @@ export default function Reconcile() {
             </Card>
 
             <Card>
-              <CardHeader className="border-b bg-muted/30">
-                <CardTitle className="text-lg flex items-center gap-2">
-                  System Records
-                  <Badge variant="secondary">{filteredSystemTransactions.length}</Badge>
-                </CardTitle>
+              <CardHeader className="border-b bg-muted/30 space-y-3 pb-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    System Records
+                    <Badge variant="secondary">{filteredSystemTransactions.length}</Badge>
+                  </CardTitle>
+                </div>
+                <div className="relative">
+                  <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search system records..."
+                    className="pl-9 h-9"
+                    value={systemSearchTerm}
+                    onChange={(e) => setSystemSearchTerm(e.target.value)}
+                  />
+                </div>
               </CardHeader>
               <CardContent className="p-4 space-y-3 max-h-[calc(100vh-350px)] overflow-y-auto">
                 {filteredSystemTransactions.map((transaction) => (
