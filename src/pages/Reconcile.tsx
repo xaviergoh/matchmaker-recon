@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, CheckCircle2, X, ArrowLeftRight, Link2, Calendar, User } from "lucide-react";
+import { Search, CheckCircle2, X, ArrowLeftRight, Link2, Calendar, User, Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -34,7 +34,9 @@ export default function Reconcile() {
     (t) =>
       t.description.toLowerCase().includes(bankSearchTerm.toLowerCase()) ||
       t.reference.toLowerCase().includes(bankSearchTerm.toLowerCase()) ||
-      t.partner?.toLowerCase().includes(bankSearchTerm.toLowerCase())
+      t.partner?.toLowerCase().includes(bankSearchTerm.toLowerCase()) ||
+      t.bankAccount?.toLowerCase().includes(bankSearchTerm.toLowerCase()) ||
+      t.accountNumber?.toLowerCase().includes(bankSearchTerm.toLowerCase())
   );
 
   const filteredSystemTransactions = unmatchedSystemTransactions.filter(
@@ -99,6 +101,14 @@ export default function Reconcile() {
             </>
           )}
         </div>
+        {transaction.type === "bank" && transaction.bankAccount && (
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
+            <Building2 className="h-3 w-3" />
+            <span className="font-medium">{transaction.bankAccount}</span>
+            <span>•</span>
+            <span className="font-mono">{transaction.accountNumber}</span>
+          </div>
+        )}
       </div>
       <div className="text-right">
         <p
@@ -143,6 +153,13 @@ export default function Reconcile() {
               <div className="bg-background rounded-lg p-3 space-y-1">
                 <p className="text-xs text-muted-foreground font-semibold">BANK STATEMENT</p>
                 <p className="font-medium text-sm">{bank.description}</p>
+                {bank.bankAccount && (
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <Building2 className="h-3 w-3" />
+                    <span>{bank.bankAccount}</span>
+                    <span className="font-mono">({bank.accountNumber})</span>
+                  </div>
+                )}
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <span className="font-mono">{bank.reference}</span>
                   {bank.partner && (
@@ -240,7 +257,7 @@ export default function Reconcile() {
                 <div className="relative">
                   <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search bank statements..."
+                    placeholder="Search by description, reference, partner, or bank account..."
                     className="pl-9 h-9"
                     value={bankSearchTerm}
                     onChange={(e) => setBankSearchTerm(e.target.value)}

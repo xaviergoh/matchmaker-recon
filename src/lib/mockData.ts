@@ -10,6 +10,8 @@ export interface Transaction {
   matchConfidence?: number;
   category?: string;
   partner?: string;
+  bankAccount?: string;
+  accountNumber?: string;
 }
 
 export interface DashboardStats {
@@ -133,6 +135,8 @@ export const bankTransactions: Transaction[] = [
     status: "exception",
     category: "Cross-Border Payment",
     partner: "Merchant A Pte Ltd",
+    bankAccount: "OCBC Customer Segment SGD",
+    accountNumber: "8234-567890",
   },
   {
     id: "B002",
@@ -146,6 +150,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "Cross-Border Payment",
     partner: "Vendor B GmbH",
+    bankAccount: "DBS Customer Segment USD",
+    accountNumber: "0012-345679",
   },
   {
     id: "B003",
@@ -158,6 +164,8 @@ export const bankTransactions: Transaction[] = [
     status: "exception",
     category: "Cross-Border Payment",
     partner: "Supplier C Ltd",
+    bankAccount: "DBS Customer Segment SGD",
+    accountNumber: "0012-345678",
   },
   {
     id: "B004",
@@ -171,6 +179,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "Cross-Border Payment",
     partner: "Partner D KK",
+    bankAccount: "OCBC Customer Segment USD",
+    accountNumber: "8234-567891",
   },
   {
     id: "B005",
@@ -184,6 +194,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "Cross-Border Payment",
     partner: "Merchant E SA",
+    bankAccount: "DBS Customer Segment USD",
+    accountNumber: "0012-345679",
   },
   {
     id: "B006",
@@ -197,6 +209,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "Cross-Border Payment",
     partner: "Vendor F plc",
+    bankAccount: "OCBC Customer Segment USD",
+    accountNumber: "8234-567891",
   },
   {
     id: "B007",
@@ -210,6 +224,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "Cross-Border Payment",
     partner: "Supplier G Inc",
+    bankAccount: "DBS Customer Segment USD",
+    accountNumber: "0012-345679",
   },
   {
     id: "B008",
@@ -222,6 +238,8 @@ export const bankTransactions: Transaction[] = [
     status: "unmatched",
     category: "Cross-Border Payment",
     partner: "Partner H BV",
+    bankAccount: "OCBC Customer Segment SGD",
+    accountNumber: "8234-567890",
   },
 
   // 3rd Party Collections (Payins) - 8 transactions
@@ -237,6 +255,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "3rd Party Collection",
     partner: "Customer ABC Pte Ltd",
+    bankAccount: "DBS Customer Segment SGD",
+    accountNumber: "0012-345678",
   },
   {
     id: "B010",
@@ -250,6 +270,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "3rd Party Collection",
     partner: "Payment Gateway Solutions",
+    bankAccount: "OCBC Customer Segment USD",
+    accountNumber: "8234-567891",
   },
   {
     id: "B011",
@@ -262,6 +284,8 @@ export const bankTransactions: Transaction[] = [
     status: "exception",
     category: "3rd Party Collection",
     partner: "Customer XYZ Inc",
+    bankAccount: "DBS Customer Segment USD",
+    accountNumber: "0012-345679",
   },
   {
     id: "B012",
@@ -275,6 +299,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "3rd Party Collection",
     partner: "Subscriber DEF Ltd",
+    bankAccount: "OCBC Customer Segment SGD",
+    accountNumber: "8234-567890",
   },
   {
     id: "B013",
@@ -288,6 +314,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "3rd Party Collection",
     partner: "Stripe Asia Pte Ltd",
+    bankAccount: "OCBC Customer Segment USD",
+    accountNumber: "8234-567891",
   },
   {
     id: "B014",
@@ -301,6 +329,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "3rd Party Collection",
     partner: "Customer GHI Pte Ltd",
+    bankAccount: "DBS Customer Segment SGD",
+    accountNumber: "0012-345678",
   },
   {
     id: "B015",
@@ -314,6 +344,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "3rd Party Collection",
     partner: "Merchant JKL Inc",
+    bankAccount: "DBS Customer Segment USD",
+    accountNumber: "0012-345679",
   },
   {
     id: "B016",
@@ -326,6 +358,8 @@ export const bankTransactions: Transaction[] = [
     status: "unmatched",
     category: "3rd Party Collection",
     partner: "Customer MNO GmbH",
+    bankAccount: "OCBC Customer Segment USD",
+    accountNumber: "8234-567891",
   },
 
   // 1st Party Deposits (Wallet Funding) - 3 transactions
@@ -341,6 +375,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "1st Party Deposit",
     partner: "Own Account - DBS",
+    bankAccount: "DBS Operations SGD",
+    accountNumber: "0012-345681",
   },
   {
     id: "B018",
@@ -354,6 +390,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "1st Party Deposit",
     partner: "Own Account - OCBC",
+    bankAccount: "OCBC Operations USD",
+    accountNumber: "8234-567892",
   },
   {
     id: "B019",
@@ -367,6 +405,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "1st Party Deposit",
     partner: "Own Account - Standard Chartered",
+    bankAccount: "OCBC Operations USD",
+    accountNumber: "8234-567892",
   },
 
   // Bank Charges - 3 transactions
@@ -380,6 +420,8 @@ export const bankTransactions: Transaction[] = [
     type: "bank",
     status: "unmatched",
     category: "Bank Charge",
+    bankAccount: "OCBC Operations SGD",
+    accountNumber: "8234-567893",
   },
   {
     id: "B021",
@@ -391,6 +433,8 @@ export const bankTransactions: Transaction[] = [
     type: "bank",
     status: "unmatched",
     category: "Bank Charge",
+    bankAccount: "DBS Operations USD",
+    accountNumber: "0012-345680",
   },
   {
     id: "B022",
@@ -402,6 +446,8 @@ export const bankTransactions: Transaction[] = [
     type: "bank",
     status: "unmatched",
     category: "Bank Charge",
+    bankAccount: "DBS Operations SGD",
+    accountNumber: "0012-345681",
   },
 
   // Bank Fees - 2 transactions
@@ -416,6 +462,8 @@ export const bankTransactions: Transaction[] = [
     status: "matched",
     matchConfidence: 100,
     category: "Bank Fee",
+    bankAccount: "OCBC Operations USD",
+    accountNumber: "8234-567892",
   },
   {
     id: "B024",
@@ -428,6 +476,8 @@ export const bankTransactions: Transaction[] = [
     status: "matched",
     matchConfidence: 100,
     category: "Bank Fee",
+    bankAccount: "OCBC Operations SGD",
+    accountNumber: "8234-567893",
   },
 
   // Refunds - 1 transaction
@@ -443,6 +493,8 @@ export const bankTransactions: Transaction[] = [
     matchConfidence: 100,
     category: "Refund",
     partner: "Customer PQR Ltd",
+    bankAccount: "DBS Customer Segment USD",
+    accountNumber: "0012-345679",
   },
 ];
 

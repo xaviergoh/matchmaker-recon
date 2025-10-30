@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, ArrowLeftRight, CheckCircle2, User, Calendar, Link2, FileText, AlertCircle } from "lucide-react";
+import { Search, ArrowLeftRight, CheckCircle2, User, Calendar, Link2, FileText, AlertCircle, Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -37,7 +37,9 @@ export default function MatchedRecords() {
       match.matchedBy.toLowerCase().includes(searchLower) ||
       bank?.reference.toLowerCase().includes(searchLower) ||
       system?.reference.toLowerCase().includes(searchLower) ||
-      bank?.partner?.toLowerCase().includes(searchLower)
+      bank?.partner?.toLowerCase().includes(searchLower) ||
+      bank?.bankAccount?.toLowerCase().includes(searchLower) ||
+      bank?.accountNumber?.toLowerCase().includes(searchLower)
     );
   });
 
@@ -67,6 +69,20 @@ export default function MatchedRecords() {
           <p className="text-sm text-muted-foreground">Description</p>
           <p className="font-medium">{transaction.description}</p>
         </div>
+        {transaction.type === "bank" && transaction.bankAccount && (
+          <div>
+            <p className="text-sm text-muted-foreground">Bank Account</p>
+            <div className="flex items-center gap-2 mt-1">
+              <Building2 className="h-4 w-4 text-muted-foreground" />
+              <div>
+                <p className="text-sm font-medium">{transaction.bankAccount}</p>
+                <p className="text-xs font-mono text-muted-foreground">
+                  {transaction.accountNumber}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-sm text-muted-foreground">Reference</p>
@@ -119,7 +135,7 @@ export default function MatchedRecords() {
       <div className="relative">
         <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
         <Input
-          placeholder="Search by match ID, reference, partner, or user..."
+          placeholder="Search by match ID, reference, partner, bank account, or user..."
           className="pl-10"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -139,6 +155,7 @@ export default function MatchedRecords() {
                 <TableHead>Date Matched</TableHead>
                 <TableHead>Bank Reference</TableHead>
                 <TableHead>System Reference</TableHead>
+                <TableHead>Bank Account</TableHead>
                 <TableHead>Partner</TableHead>
                 <TableHead>Amount</TableHead>
                 <TableHead>Type</TableHead>
@@ -165,6 +182,21 @@ export default function MatchedRecords() {
                     </TableCell>
                     <TableCell className="font-mono text-sm">{bank.reference}</TableCell>
                     <TableCell className="font-mono text-sm">{system.reference}</TableCell>
+                    <TableCell className="text-sm">
+                      {bank.bankAccount ? (
+                        <div className="space-y-0.5">
+                          <div className="flex items-center gap-1">
+                            <Building2 className="h-3 w-3 text-muted-foreground" />
+                            <span className="font-medium text-xs">{bank.bankAccount}</span>
+                          </div>
+                          <div className="font-mono text-xs text-muted-foreground">
+                            {bank.accountNumber}
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="text-muted-foreground">N/A</span>
+                      )}
+                    </TableCell>
                     <TableCell className="text-sm">{bank.partner || "N/A"}</TableCell>
                     <TableCell className="font-semibold text-success">
                       {bank.currency} {Math.abs(bank.amount).toLocaleString()}
