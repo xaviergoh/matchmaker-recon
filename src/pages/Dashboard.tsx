@@ -1,13 +1,25 @@
-import { ArrowRight, CheckCircle2, AlertTriangle, Clock, TrendingUp, Link2, Calendar, User } from "lucide-react";
+import { ArrowRight, CheckCircle2, AlertTriangle, Clock, TrendingUp, Link2, Calendar, User, Search } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import StatCard from "@/components/StatCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { dashboardStats, exceptions, matchRecords, bankTransactions, systemTransactions } from "@/lib/mockData";
 import { cn } from "@/lib/utils";
 
 export default function Dashboard() {
+  const [accountSearch, setAccountSearch] = useState("");
+
+  const filteredAccounts = dashboardStats.accounts.filter(
+    (account) =>
+      account.bank.toLowerCase().includes(accountSearch.toLowerCase()) ||
+      account.segment.toLowerCase().includes(accountSearch.toLowerCase()) ||
+      account.currency.toLowerCase().includes(accountSearch.toLowerCase()) ||
+      account.accountNumber.includes(accountSearch)
+  );
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -53,46 +65,72 @@ export default function Dashboard() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Settlement Accounts</CardTitle>
+          <CardHeader className="space-y-3">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-lg flex items-center gap-2">
+                Bank Accounts
+                <Badge variant="secondary" className="text-xs">{filteredAccounts.length}</Badge>
+              </CardTitle>
+            </div>
+            <div className="relative">
+              <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search bank accounts..."
+                className="pl-9 h-9"
+                value={accountSearch}
+                onChange={(e) => setAccountSearch(e.target.value)}
+              />
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            {dashboardStats.accounts.map((account) => (
-              <div
-                key={account.id}
-                className="flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-secondary/50"
-              >
-                <div className="space-y-1">
-                  <p className="font-medium text-foreground">{account.name}</p>
-                  <p className="text-sm text-muted-foreground">
-                    Last reconciled: {account.lastReconciled}
-                  </p>
-                </div>
-                <div className="text-right space-y-2">
-                  <p className="font-semibold text-foreground">
-                    SGD {(account.balance / 1000000).toFixed(1)}M
-                  </p>
-                  <Badge
-                    variant={
-                      account.status === "reconciled"
-                        ? "default"
-                        : account.status === "pending"
-                        ? "secondary"
-                        : "destructive"
-                    }
-                    className={cn(
-                      account.status === "reconciled" && "bg-success text-success-foreground",
-                      account.status === "pending" && "bg-warning text-warning-foreground"
-                    )}
-                  >
-                    {account.status === "reconciled" && <CheckCircle2 className="mr-1 h-3 w-3" />}
-                    {account.status === "pending" && <Clock className="mr-1 h-3 w-3" />}
-                    {account.status === "critical" && <AlertTriangle className="mr-1 h-3 w-3" />}
-                    {account.status.charAt(0).toUpperCase() + account.status.slice(1)}
-                  </Badge>
-                </div>
+            {filteredAccounts.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                <p>No bank accounts found</p>
+                <p className="text-sm mt-1">Try adjusting your search</p>
               </div>
-            ))}
+            ) : (
+              filteredAccounts.map((account) => (
+                <div
+                  key={account.id}
+                  className="flex items-center justify-between rounded-lg border p-4 transition-colors hover:bg-secondary/50"
+                >
+                  <div className="space-y-1">
+                    <p className="font-medium text-foreground">
+                      {account.bank} {account.segment} {account.currency}
+                    </p>
+                    <p className="text-xs font-mono text-muted-foreground">
+                      {account.accountNumber}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Last reconciled: {account.lastReconciled}
+                    </p>
+                  </div>
+                  <div className="text-right space-y-2">
+                    <p className="font-semibold text-foreground">
+                      {account.currency} {(account.balance / 1000000).toFixed(2)}M
+                    </p>
+                    <Badge
+                      variant={
+                        account.status === "reconciled"
+                          ? "default"
+                          : account.status === "pending"
+                          ? "secondary"
+                          : "destructive"
+                      }
+                      className={cn(
+                        account.status === "reconciled" && "bg-success text-success-foreground",
+                        account.status === "pending" && "bg-warning text-warning-foreground"
+                      )}
+                    >
+                      {account.status === "reconciled" && <CheckCircle2 className="mr-1 h-3 w-3" />}
+                      {account.status === "pending" && <Clock className="mr-1 h-3 w-3" />}
+                      {account.status === "critical" && <AlertTriangle className="mr-1 h-3 w-3" />}
+                      {account.status.charAt(0).toUpperCase() + account.status.slice(1)}
+                    </Badge>
+                  </div>
+                </div>
+              ))
+            )}
           </CardContent>
         </Card>
 

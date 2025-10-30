@@ -22,7 +22,10 @@ export interface DashboardStats {
 
 export interface AccountStatus {
   id: string;
-  name: string;
+  bank: string;
+  segment: string;
+  currency: string;
+  accountNumber: string;
   balance: number;
   status: "reconciled" | "pending" | "critical";
   lastReconciled: string;
@@ -35,25 +38,84 @@ export const dashboardStats: DashboardStats = {
   matchRate: 95.5,
   accounts: [
     {
-      id: "1",
-      name: "SGD Settlement Account",
-      balance: 15850000,
+      id: "ACC001",
+      bank: "OCBC",
+      segment: "Customer Segment",
+      currency: "SGD",
+      accountNumber: "8234-567890",
+      balance: 12500000,
       status: "reconciled",
       lastReconciled: "2024-10-30 09:35 AM",
     },
     {
-      id: "2",
-      name: "USD Multi-Currency Pool",
-      balance: 9250000,
+      id: "ACC002",
+      bank: "OCBC",
+      segment: "Customer Segment",
+      currency: "USD",
+      accountNumber: "8234-567891",
+      balance: 8750000,
       status: "reconciled",
       lastReconciled: "2024-10-30 09:32 AM",
     },
     {
-      id: "3",
-      name: "EUR Multi-Currency Pool",
-      balance: 3480000,
+      id: "ACC003",
+      bank: "OCBC",
+      segment: "Operations",
+      currency: "USD",
+      accountNumber: "8234-567892",
+      balance: 3200000,
       status: "pending",
       lastReconciled: "2024-10-29 04:15 PM",
+    },
+    {
+      id: "ACC004",
+      bank: "OCBC",
+      segment: "Operations",
+      currency: "SGD",
+      accountNumber: "8234-567893",
+      balance: 5400000,
+      status: "reconciled",
+      lastReconciled: "2024-10-30 08:45 AM",
+    },
+    {
+      id: "ACC005",
+      bank: "DBS",
+      segment: "Customer Segment",
+      currency: "SGD",
+      accountNumber: "0012-345678",
+      balance: 18900000,
+      status: "reconciled",
+      lastReconciled: "2024-10-30 10:15 AM",
+    },
+    {
+      id: "ACC006",
+      bank: "DBS",
+      segment: "Customer Segment",
+      currency: "USD",
+      accountNumber: "0012-345679",
+      balance: 11300000,
+      status: "reconciled",
+      lastReconciled: "2024-10-30 10:10 AM",
+    },
+    {
+      id: "ACC007",
+      bank: "DBS",
+      segment: "Operations",
+      currency: "USD",
+      accountNumber: "0012-345680",
+      balance: 2850000,
+      status: "critical",
+      lastReconciled: "2024-10-28 03:20 PM",
+    },
+    {
+      id: "ACC008",
+      bank: "DBS",
+      segment: "Operations",
+      currency: "SGD",
+      accountNumber: "0012-345681",
+      balance: 4700000,
+      status: "pending",
+      lastReconciled: "2024-10-29 02:30 PM",
     },
   ],
 };
