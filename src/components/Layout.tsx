@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, ArrowLeftRight, AlertCircle, Clock } from "lucide-react";
+import { LayoutDashboard, ArrowLeftRight, AlertCircle, Clock, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LayoutProps {
@@ -9,6 +9,7 @@ interface LayoutProps {
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
   { name: "Reconcile", href: "/reconcile", icon: ArrowLeftRight },
+  { name: "Matched Records", href: "/matched-records", icon: CheckCircle },
   { name: "Exceptions", href: "/exceptions", icon: AlertCircle },
   { name: "Watchlist", href: "/watchlist", icon: Clock },
 ];

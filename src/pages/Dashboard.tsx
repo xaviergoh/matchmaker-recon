@@ -1,10 +1,10 @@
-import { ArrowRight, CheckCircle2, AlertTriangle, Clock, TrendingUp } from "lucide-react";
+import { ArrowRight, CheckCircle2, AlertTriangle, Clock, TrendingUp, Link2, Calendar, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import StatCard from "@/components/StatCard";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { dashboardStats, exceptions } from "@/lib/mockData";
+import { dashboardStats, exceptions, matchRecords, bankTransactions, systemTransactions } from "@/lib/mockData";
 import { cn } from "@/lib/utils";
 
 export default function Dashboard() {
@@ -143,6 +143,67 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Recent Matches */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle className="text-lg">Recent Matches</CardTitle>
+            <CardDescription>Latest reconciled transactions</CardDescription>
+          </div>
+          <Link to="/matched-records">
+            <Button variant="ghost" size="sm" className="gap-1">
+              View All
+              <ArrowRight className="h-3 w-3" />
+            </Button>
+          </Link>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {matchRecords.slice(0, 5).map((match) => {
+            const bank = bankTransactions.find((t) => t.id === match.bankTransactionId);
+            const system = systemTransactions.find((t) => t.id === match.systemTransactionId);
+            
+            if (!bank || !system) return null;
+
+            return (
+              <div key={match.id} className="flex items-center justify-between p-3 rounded-lg border bg-success-light border-success/20">
+                <div className="flex-1 space-y-1">
+                  <div className="flex items-center gap-2">
+                    <Link2 className="h-4 w-4 text-success" />
+                    <span className="font-mono text-sm text-muted-foreground">{match.id}</span>
+                    <Badge variant="default" className="bg-success text-xs">
+                      {match.matchType}
+                    </Badge>
+                  </div>
+                  <p className="text-sm font-medium">{bank.partner || bank.description}</p>
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1">
+                      <Calendar className="h-3 w-3" />
+                      {new Date(match.matchedAt).toLocaleDateString()}
+                    </span>
+                    <span>•</span>
+                    <span className="flex items-center gap-1">
+                      <User className="h-3 w-3" />
+                      {match.matchedBy.split("@")[0]}
+                    </span>
+                    <span>•</span>
+                    <span className="font-mono">{bank.reference}</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-lg font-semibold text-success">
+                    {bank.currency} {Math.abs(bank.amount).toLocaleString()}
+                  </p>
+                  <p className="text-xs text-muted-foreground flex items-center justify-end gap-1">
+                    <CheckCircle2 className="h-3 w-3" />
+                    {match.matchConfidence}% confidence
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>

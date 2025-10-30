@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import Reconcile from "./pages/Reconcile";
+import MatchedRecords from "./pages/MatchedRecords";
 import Exceptions from "./pages/Exceptions";
 import Watchlist from "./pages/Watchlist";
 import NotFound from "./pages/NotFound";
@@ -22,6 +23,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/reconcile" element={<Reconcile />} />
+            <Route path="/matched-records" element={<MatchedRecords />} />
             <Route path="/exceptions" element={<Exceptions />} />
             <Route path="/watchlist" element={<Watchlist />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

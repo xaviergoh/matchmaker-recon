@@ -177,6 +177,25 @@ export const systemTransactions: Transaction[] = [
   },
 ];
 
+export interface MatchAdjustment {
+  type: "fx_spread" | "timing" | "fee" | "other";
+  amount: number;
+  currency: string;
+  description: string;
+}
+
+export interface MatchRecord {
+  id: string;
+  bankTransactionId: string;
+  systemTransactionId: string;
+  matchedAt: string;
+  matchedBy: string;
+  matchType: "auto" | "manual";
+  matchConfidence: number;
+  adjustments?: MatchAdjustment[];
+  notes?: string;
+}
+
 export interface Exception {
   id: string;
   type: "timing" | "duplicate" | "amount_mismatch" | "unmatched";
@@ -186,6 +205,39 @@ export interface Exception {
   suggestedAction?: string;
   description: string;
 }
+
+export const matchRecords: MatchRecord[] = [
+  {
+    id: "M001",
+    bankTransactionId: "B002",
+    systemTransactionId: "S002",
+    matchedAt: "2024-10-30T09:35:00Z",
+    matchedBy: "sarah.chen@matchmaker.io",
+    matchType: "auto",
+    matchConfidence: 100,
+    notes: "Exact match on reference and amount",
+  },
+  {
+    id: "M002",
+    bankTransactionId: "B003",
+    systemTransactionId: "S003",
+    matchedAt: "2024-10-30T09:32:00Z",
+    matchedBy: "sarah.chen@matchmaker.io",
+    matchType: "auto",
+    matchConfidence: 100,
+    notes: "Platform license revenue Q4",
+  },
+  {
+    id: "M003",
+    bankTransactionId: "B005",
+    systemTransactionId: "S004",
+    matchedAt: "2024-10-29T16:18:00Z",
+    matchedBy: "michael.wong@matchmaker.io",
+    matchType: "manual",
+    matchConfidence: 95,
+    notes: "Treasury EUR pool management - manual verification required",
+  },
+];
 
 export const exceptions: Exception[] = [
   {
