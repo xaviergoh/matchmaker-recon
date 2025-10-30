@@ -75,6 +75,12 @@ export default function Reconcile() {
               </Badge>
             </>
           )}
+          {transaction.partner && (
+            <>
+              <span>•</span>
+              <span className="text-xs">{transaction.partner}</span>
+            </>
+          )}
         </div>
       </div>
       <div className="text-right">
@@ -84,7 +90,7 @@ export default function Reconcile() {
             transaction.amount > 0 ? "text-success" : "text-foreground"
           )}
         >
-          {transaction.amount > 0 ? "+" : ""}${Math.abs(transaction.amount).toLocaleString()}
+          {transaction.amount > 0 ? "+" : ""}{transaction.currency} {Math.abs(transaction.amount).toLocaleString()}
         </p>
       </div>
     </div>
@@ -113,7 +119,7 @@ export default function Reconcile() {
       <div className="relative">
         <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
         <Input
-          placeholder="Search by description, reference, invoice number..."
+          placeholder="Search by partner, reference, FX pair, settlement ID..."
           className="pl-10"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

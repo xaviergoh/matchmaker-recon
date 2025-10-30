@@ -95,14 +95,14 @@ export default function Exceptions() {
                     <p className="font-medium text-foreground mb-1">Bank</p>
                     <p className="text-muted-foreground">{exception.bankTransaction.description}</p>
                     <p className="font-semibold text-success mt-1">
-                      ${exception.bankTransaction.amount.toLocaleString()}
+                      {exception.bankTransaction.currency} {exception.bankTransaction.amount.toLocaleString()}
                     </p>
                   </div>
                   <div className="rounded-lg border p-3 bg-card">
                     <p className="font-medium text-foreground mb-1">System</p>
                     <p className="text-muted-foreground">{exception.systemTransaction.description}</p>
                     <p className="font-semibold text-success mt-1">
-                      ${exception.systemTransaction.amount.toLocaleString()}
+                      {exception.systemTransaction.currency} {exception.systemTransaction.amount.toLocaleString()}
                     </p>
                   </div>
                 </div>
@@ -136,7 +136,7 @@ export default function Exceptions() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Exception Management</h1>
-          <p className="text-muted-foreground mt-1">Review and resolve unmatched items</p>
+          <p className="text-muted-foreground mt-1">Review and resolve settlement variances</p>
         </div>
       </div>
 
@@ -164,7 +164,7 @@ export default function Exceptions() {
             <div>
               <p className="font-medium text-foreground">Bulk Action Available</p>
               <p className="text-sm text-muted-foreground mt-1">
-                Accept all timing differences and add to watchlist for 3-day monitoring
+                Accept all timing differences and add to watchlist for 2-day settlement monitoring
               </p>
             </div>
             <Button onClick={() => handleBulkAccept("timing")} className="gap-2">

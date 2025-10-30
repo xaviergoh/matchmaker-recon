@@ -25,7 +25,10 @@ export default function Layout({ children }: LayoutProps) {
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
                 <ArrowLeftRight className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-semibold text-foreground">Matchmaker</span>
+              <div className="flex flex-col">
+                <span className="text-xl font-semibold text-foreground">Matchmaker</span>
+                <span className="text-xs text-muted-foreground">Internal Reconciliation</span>
+              </div>
             </Link>
             
             <nav className="hidden md:flex items-center gap-1">

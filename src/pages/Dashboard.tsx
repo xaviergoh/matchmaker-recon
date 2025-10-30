@@ -13,7 +13,7 @@ export default function Dashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Reconciliation Dashboard</h1>
-          <p className="text-muted-foreground mt-1">Daily reconciliation overview - October 30, 2024</p>
+          <p className="text-muted-foreground mt-1">Multi-currency settlement overview - October 30, 2024</p>
         </div>
         <Link to="/reconcile">
           <Button size="lg" className="gap-2">
@@ -54,7 +54,7 @@ export default function Dashboard() {
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Account Status</CardTitle>
+            <CardTitle className="text-lg">Settlement Accounts</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {dashboardStats.accounts.map((account) => (
@@ -70,7 +70,7 @@ export default function Dashboard() {
                 </div>
                 <div className="text-right space-y-2">
                   <p className="font-semibold text-foreground">
-                    ${(account.balance / 1000).toFixed(1)}K
+                    SGD {(account.balance / 1000000).toFixed(1)}M
                   </p>
                   <Badge
                     variant={
@@ -152,20 +152,20 @@ export default function Dashboard() {
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <Link to="/reconcile" className="group">
               <div className="rounded-lg border p-4 transition-all hover:border-primary hover:bg-primary/5">
-                <p className="font-medium text-foreground group-hover:text-primary">View Split Screen</p>
-                <p className="text-sm text-muted-foreground mt-1">Compare transactions side by side</p>
+                <p className="font-medium text-foreground group-hover:text-primary">Multi-Currency Match</p>
+                <p className="text-sm text-muted-foreground mt-1">Reconcile FX settlements side by side</p>
               </div>
             </Link>
             <Link to="/exceptions" className="group">
               <div className="rounded-lg border p-4 transition-all hover:border-warning hover:bg-warning/5">
-                <p className="font-medium text-foreground group-hover:text-warning">Review Exceptions</p>
-                <p className="text-sm text-muted-foreground mt-1">Resolve unmatched items</p>
+                <p className="font-medium text-foreground group-hover:text-warning">Partner Exceptions</p>
+                <p className="text-sm text-muted-foreground mt-1">Resolve settlement variances</p>
               </div>
             </Link>
             <Link to="/watchlist" className="group">
               <div className="rounded-lg border p-4 transition-all hover:border-accent hover:bg-accent/5">
-                <p className="font-medium text-foreground group-hover:text-accent">Check Watchlist</p>
-                <p className="text-sm text-muted-foreground mt-1">Monitor pending transactions</p>
+                <p className="font-medium text-foreground group-hover:text-accent">Pending Settlements</p>
+                <p className="text-sm text-muted-foreground mt-1">Monitor partner transactions</p>
               </div>
             </Link>
             <div className="group cursor-not-allowed opacity-60">

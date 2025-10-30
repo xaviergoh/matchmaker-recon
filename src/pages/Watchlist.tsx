@@ -17,8 +17,8 @@ interface WatchlistItem {
 const watchlistItems: WatchlistItem[] = [
   {
     id: "W001",
-    description: "Customer Payment - Invoice 1052",
-    amount: 12500,
+    description: "FX Settlement - Partner A (USD/SGD)",
+    amount: 125000,
     daysRemaining: 2,
     addedDate: "2024-10-28",
     expectedClearDate: "2024-11-01",
@@ -26,8 +26,8 @@ const watchlistItems: WatchlistItem[] = [
   },
   {
     id: "W002",
-    description: "Vendor Payment - PO-9941",
-    amount: -8750,
+    description: "Card Scheme Settlement - Mastercard EUR",
+    amount: -87500,
     daysRemaining: 1,
     addedDate: "2024-10-29",
     expectedClearDate: "2024-10-31",
@@ -35,8 +35,8 @@ const watchlistItems: WatchlistItem[] = [
   },
   {
     id: "W003",
-    description: "Partial Settlement - Customer ABC",
-    amount: 5000,
+    description: "Partial Treasury Rebalance - GBP Pool",
+    amount: 50000,
     daysRemaining: 3,
     addedDate: "2024-10-27",
     expectedClearDate: "2024-11-02",
@@ -56,7 +56,7 @@ export default function Watchlist() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Watchlist</h1>
-          <p className="text-muted-foreground mt-1">Monitor pending transactions and timing differences</p>
+          <p className="text-muted-foreground mt-1">Monitor pending partner settlements and timing differences</p>
         </div>
         <Badge variant="secondary" className="text-lg px-4 py-2">
           {watchlistItems.length} Items
@@ -68,7 +68,7 @@ export default function Watchlist() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Timing Differences</p>
+                <p className="text-sm font-medium text-muted-foreground">Settlement Timing</p>
                 <p className="text-2xl font-bold text-foreground mt-1">
                   {watchlistItems.filter(i => i.type === "timing").length}
                 </p>
@@ -84,7 +84,7 @@ export default function Watchlist() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Partial Payments</p>
+                <p className="text-sm font-medium text-muted-foreground">Partial Settlements</p>
                 <p className="text-2xl font-bold text-foreground mt-1">
                   {watchlistItems.filter(i => i.type === "partial").length}
                 </p>
@@ -102,7 +102,7 @@ export default function Watchlist() {
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Total Value</p>
                 <p className="text-2xl font-bold text-foreground mt-1">
-                  ${watchlistItems.reduce((sum, item) => sum + Math.abs(item.amount), 0).toLocaleString()}
+                  SGD {(watchlistItems.reduce((sum, item) => sum + Math.abs(item.amount), 0) / 1000).toFixed(0)}K
                 </p>
               </div>
               <div className="rounded-lg bg-primary/10 p-3">
@@ -115,7 +115,7 @@ export default function Watchlist() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Monitored Transactions</CardTitle>
+          <CardTitle className="text-lg">Monitored Settlements</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           {watchlistItems.map((item) => (
@@ -149,7 +149,7 @@ export default function Watchlist() {
 
                 <div className="text-right space-y-2">
                   <p className="text-lg font-semibold text-foreground">
-                    {item.amount > 0 ? "+" : ""}${Math.abs(item.amount).toLocaleString()}
+                    {item.amount > 0 ? "+" : ""}SGD {Math.abs(item.amount).toLocaleString()}
                   </p>
                   <Button size="sm" onClick={() => handleMarkCleared(item.id)}>
                     Mark Cleared
