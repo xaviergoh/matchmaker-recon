@@ -379,21 +379,9 @@ matchmaker-recon/
 
 This is an internal tool developed for fintech operations. All rights reserved.
 
-## 🤝 Support
-
-For questions, issues, or feature requests:
-- Internal Wiki: [Company Knowledge Base]
-- Slack Channel: #matchmaker-support
-- Email: fintech-tools@company.com
-
-## 🔗 Related Resources
-
-- [Lovable Project](https://lovable.dev/projects/5f7f0013-e0bf-4601-ae19-7830319d8697)
-- [Setting up Custom Domain](https://docs.lovable.dev/features/custom-domain)
-- [Deployment Guide](https://docs.lovable.dev)
 
 ---
 
 **Version:** 1.0.0  
 **Last Updated:** 2025-10-31  
-**Maintained by:** Finance Technology Team
+**Maintained by:** Xavier Goh
