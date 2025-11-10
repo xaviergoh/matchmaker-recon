@@ -29,7 +29,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter basename="/matchmaker-recon">
+        <BrowserRouter>
           <Layout>
             <Routes>
               <Route path="/" element={<Dashboard />} />
